@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgentCheat.cs" />
     <Compile Include="AgentClass.cs" />
     <Compile Include="AStarAgent.cs" />
     <Compile Include="AStarNode.cs" />

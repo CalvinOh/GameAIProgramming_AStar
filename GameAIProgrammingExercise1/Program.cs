@@ -13,7 +13,7 @@ namespace GameAIProgrammingExercise1
 
 
             Map.SetUp();
-            Map.BuildWall();
+            Map.BuildOuterWall();
             Map.Obstacles();
 
             /*
@@ -30,7 +30,7 @@ namespace GameAIProgrammingExercise1
 
             AStarAgent ASAgent = new AStarAgent(1,1,10,10) ;
 
-            while (!ASAgent.Finish())
+            while (!ASAgent.ReachedTarget())
             {
                 ASAgent.SolvePuzzle();
                 
@@ -38,7 +38,7 @@ namespace GameAIProgrammingExercise1
 
             Console.WriteLine("----------------------------------");
 
-            ASAgent.BestPath();
+            ASAgent.CalculateBestPath();
 
             Console.Read();
 

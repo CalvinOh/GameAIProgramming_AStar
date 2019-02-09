@@ -37,8 +37,8 @@ namespace GameAIProgrammingExercise1
         public void SolvePuzzle()
         {
             Console.WriteLine((CurrentX - 1) + " , " + (CurrentY - 1));
-            FindNeighbors();
-            CheckNeighbours();
+            FindNeighborsNodes();
+            CheckAndAddListsForNeighbours();
             int LowestFFound = 100000;
             AStarNode selectednode = new AStarNode(-1,-1);
             foreach (AStarNode m in OpenNodes)
@@ -59,8 +59,8 @@ namespace GameAIProgrammingExercise1
             }
             OpenNodes.Remove(selectednode);
             ClosedNodes.Add(selectednode);
-            CurrentX = selectednode.CurrentX;
-            CurrentY = selectednode.CurrentY;
+            CurrentX = selectednode.ThisNodeX;
+            CurrentY = selectednode.ThisNodeY;
           
 
            
@@ -68,16 +68,14 @@ namespace GameAIProgrammingExercise1
 
         }
 
-
-
-        void CalculateNode(int NextNodeX, int NextNodeY)
+        void CreateOpenNodes(int NextNodeX, int NextNodeY)
         {
             bool found = false;
             AStarNode selectednode = new AStarNode(-1, -1);
 
             foreach (AStarNode m in OpenNodes)
             {
-                if (NextNodeX == m.CurrentX && NextNodeY == m.CurrentY)
+                if (NextNodeX == m.ThisNodeX && NextNodeY == m.ThisNodeY)
                 {
                     found = true;
                     if (m.FCost >= CalculateG(NextNodeX, NextNodeY) + CalculateH(NextNodeX, NextNodeY))
@@ -118,7 +116,7 @@ namespace GameAIProgrammingExercise1
                 return HValue = (DisY - DisX) * 10 + DisX * 14;
         }
 
-        void CheckNeighbours()
+        void CheckAndAddListsForNeighbours()
         {
             bool exist = false;
             foreach (AStarNode node in Neighbors)
@@ -126,26 +124,26 @@ namespace GameAIProgrammingExercise1
                 exist = false;
                 foreach (AStarNode m in ClosedNodes)
                 {
-                    if (m.CurrentX == node.CurrentX && m.CurrentY == node.CurrentY)
+                    if (m.ThisNodeX == node.ThisNodeX && m.ThisNodeY == node.ThisNodeY)
                     {
                         exist = true;
                     }
                 }
                 foreach (AStarNode m in OpenNodes)
                 {
-                    if (m.CurrentX == node.CurrentX && m.CurrentY == node.CurrentY)
+                    if (m.ThisNodeX == node.ThisNodeX && m.ThisNodeY == node.ThisNodeY)
                     {
                         exist = true;
                     }
 
                 }
                 if (!exist)
-                    CalculateNode(node.CurrentX, node.CurrentY);
+                    CreateOpenNodes(node.ThisNodeX, node.ThisNodeY);
             }
             
         }
 
-        void FindNeighbors()
+        void FindNeighborsNodes()
         {
             Neighbors.Clear();
             if (Map.WorldMap[CurrentX, CurrentY - 1])
@@ -173,7 +171,7 @@ namespace GameAIProgrammingExercise1
                 Neighbors.Add(new AStarNode(CurrentX - 1, CurrentY - 1));
         }
 
-        public bool Finish()
+        public bool ReachedTarget()
         {
             if (CurrentX == TargetX && CurrentY == TargetY)
             {
@@ -183,9 +181,8 @@ namespace GameAIProgrammingExercise1
             return false;
         }
 
-        public void BestPath()
+        public void CalculateBestPath()
         {
-            //Console.WriteLine(ClosedNodes.Last().ParentX+","+ ClosedNodes.Last().ParentY);
 
             int retracingX = ClosedNodes.Last().ParentX, retracingY = ClosedNodes.Last().ParentY;
 
@@ -193,7 +190,7 @@ namespace GameAIProgrammingExercise1
             {
                 foreach (AStarNode m in ClosedNodes)
                 {
-                    if (m.CurrentX == retracingX && m.CurrentY == retracingY)
+                    if (m.ThisNodeX == retracingX && m.ThisNodeY == retracingY)
                     {
                         Console.WriteLine((retracingX) + "," + (retracingY));
                         retracingX = m.ParentX;

@@ -22,7 +22,7 @@ namespace GameAIProgrammingExercise1
                 
             }
         }
-        public static void BuildWall()
+        public static void BuildOuterWall()
         {
             for (int j = 0; j < WorldMap.GetLength(1); j++)
             {

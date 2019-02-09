@@ -9,7 +9,7 @@ namespace GameAIProgrammingExercise1
     public class AStarNode
     {
 
-        public int ParentX, ParentY, CurrentX, CurrentY;
+        public int ParentX, ParentY, ThisNodeX, ThisNodeY;
 
         public int GCost, HCost, FCost;
 
@@ -17,8 +17,8 @@ namespace GameAIProgrammingExercise1
         {
 
 
-            CurrentX = CXCoor;
-            CurrentY = CYCoor;
+            ThisNodeX = CXCoor;
+            ThisNodeY = CYCoor;
         }
 
         public AStarNode(int PXCoor, int PYCoor, int CXCoor, int CYCoor, int gCost, int hCost)
@@ -26,8 +26,8 @@ namespace GameAIProgrammingExercise1
 
             ParentX = PXCoor;
             ParentY = PYCoor;
-            CurrentX = CXCoor;
-            CurrentY = CYCoor;
+            ThisNodeX = CXCoor;
+            ThisNodeY = CYCoor;
             GCost = gCost;
             HCost = hCost;
 
